@@ -1,12 +1,13 @@
+mod config;
+mod controller;
+mod models;
+mod repository;
 mod service;
 mod utils;
-mod models;
-mod controller;
-mod config;
-mod repository;
 
-use controller::Planes_controller::planes_routes;
 use config::config::crear_pool;
+use controller::Instructores_controller::instructores_routes;
+use controller::Planes_controller::planes_routes;
 
 #[tokio::main]
 async fn main() {
@@ -30,7 +31,6 @@ fn unificar_routers(pool: sqlx::PgPool) -> axum::Router {
     // Por ahora solo tenemos Planes, los compañeros agregarán sus routers aquí
     let router = planes_routes(pool.clone());
     // Ejemplo de cómo agregar más routers:
-    // let router2 = instructores_routes(pool.clone());
-    // router.merge(router2)
-    router
+    let router2 = instructores_routes(pool.clone());
+    router.merge(router2)
 }
