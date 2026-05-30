@@ -3,7 +3,7 @@ use axum::{
     Router,
 };
 use sqlx::PgPool;
-use crate::service::Asistencia_Clases_service::{
+use crate::service::Asistencia_clases_service::{
     obtener_asistencias,
     obtener_asistencia_por_id,
     agregar_asistencia,

@@ -10,6 +10,7 @@ use controller::Instructores_controller::instructores_routes;
 use controller::Miembros_controller::miembros_routes;
 use controller::Planes_controller::planes_routes;
 use controller::Clases_controller::clases_routes;
+use controller::Asistencia_clases_controller::asistencia_clases_routes;
 
 #[tokio::main]
 async fn main() {
@@ -32,10 +33,10 @@ async fn main() {
 fn unificar_routers(pool: sqlx::PgPool) -> axum::Router {
     // Por ahora solo tenemos Planes, los compañeros agregarán sus routers aquí
     let router = planes_routes(pool.clone());
-    // Ejemplo de cómo agregar más routers:
     let router2 = instructores_routes(pool.clone());
     let router3 = miembros_routes(pool.clone());
     let router4 = clases_routes(pool.clone());
-    router.merge(router2).merge(router3).merge(router4)
+    let router5 = asistencia_clases_routes(pool.clone());
+    router.merge(router2).merge(router3).merge(router4).merge(router5)
 }
 
